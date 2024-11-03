@@ -6,7 +6,7 @@ export default function Home() {
     <div className="flex gap-4">
       <Input></Input>
       <Button size="xs">
-        Primary
+        Primary123
       </Button>
       <Button variant="secondary">
         Secondary
