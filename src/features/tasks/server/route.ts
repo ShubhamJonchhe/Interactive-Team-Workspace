@@ -355,7 +355,7 @@ const app = new Hono()
             const user = c.get("user");
             const { tasks } = await c.req.valid("json");
 
-            const tasksToUpdate = await databases.listDocuments(
+            const tasksToUpdate = await databases.listDocuments<Task>(
                 DATABASE_ID,
                 TASKS_ID,
                 [Query.contains("$id", tasks.map((task) => task.$id))]
@@ -367,6 +367,10 @@ const app = new Hono()
             }
 
             const workspaceId = workspaceIds.values().next().value;
+
+            if (!workspaceId) {
+                return c.json({ error: "Workspace ID is required"}, 400);
+            }
 
             const member = await getMember({
                 databases,
